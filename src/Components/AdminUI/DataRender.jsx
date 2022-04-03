@@ -24,13 +24,14 @@ export const DataRender = () => {
 	const [indexOfLastData, setIndexOfLastData] = useState(10);
 	const totalPages = Math.ceil(filterData.length / 10);
 
-	console.log(indexOfFirstData, indexOfLastData);
-
 	useEffect(() => {
 		setFilterData(data);
-	});
+	}, [data]);
+
+	// console.log(indexOfFirstData, indexOfLastData);
 
 	const handleChange = (e) => {
+		console.log(e.target.value);
 		dispatch(searchDataRequest());
 		setFilterData(
 			data.filter(
@@ -44,8 +45,11 @@ export const DataRender = () => {
 	};
 
 	const handleCheckedData = (e) => {
-		if (e.target.checked === true)
+		if (e.target.checked === true) {
 			setCheckedData([...checkedData, e.target.id]);
+		} else {
+			setCheckedData(checkedData.filter((cd) => cd !== e.target.id));
+		}
 	};
 
 	const deleteCheckedData = () => {
@@ -131,7 +135,6 @@ export const DataRender = () => {
 			<ReactPaginate
 				previousLabel={"previous"}
 				nextLabel={"next"}
-				breakLabel={"..."}
 				pageCount={totalPages}
 				containerClassName={"pagination justify-content-center"}
 				pageClassName={"page-item"}
