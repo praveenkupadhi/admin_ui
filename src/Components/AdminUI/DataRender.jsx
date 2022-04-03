@@ -1,19 +1,34 @@
 import { useDispatch, useSelector } from "react-redux";
 import { IconContext } from "react-icons";
 import { Delete, Edit } from "./Icons";
-import { searchDataRequest, searchDataSuccess } from "../Redux/actions";
+import {
+	deleteCheckedDataRequest,
+	deleteCheckedDataSuccess,
+	fetchDataRequest,
+	fetchDataSuccess,
+	searchDataRequest,
+	searchDataSuccess,
+} from "../Redux/actions";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import { useNavigate } from "react-router";
 
 export const DataRender = () => {
 	const data = useSelector((store) => store.data);
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const [filterData, setFilterData] = useState([...data]);
 	const [checkedData, setCheckedData] = useState([]);
 	const [indexOfFirstData, setIndexOfFirstData] = useState(0);
 	const [indexOfLastData, setIndexOfLastData] = useState(10);
 	const totalPages = Math.ceil(filterData.length / 10);
+
+	console.log(indexOfFirstData, indexOfLastData);
+
+	useEffect(() => {
+		setFilterData(data);
+	});
 
 	const handleChange = (e) => {
 		dispatch(searchDataRequest());
@@ -33,7 +48,10 @@ export const DataRender = () => {
 			setCheckedData([...checkedData, e.target.id]);
 	};
 
-	const deleteCheckedData = () => {};
+	const deleteCheckedData = () => {
+		dispatch(deleteCheckedDataRequest());
+		dispatch(deleteCheckedDataSuccess(checkedData));
+	};
 
 	// page handle
 	const handlePageClick = (data) => {

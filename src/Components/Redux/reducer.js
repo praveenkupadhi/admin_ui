@@ -1,4 +1,7 @@
 import {
+	DELETE_CHECKED_DATA_FAILURE,
+	DELETE_CHECKED_DATA_REQUEST,
+	DELETE_CHECKED_DATA_SUCCESS,
 	DELETE_DATA_FAILURE,
 	DELETE_DATA_REQUEST,
 	DELETE_DATA_SUCCESS,
@@ -44,6 +47,16 @@ export const reducer = (store = initState, { type, payload }) => {
 		case DELETE_DATA_SUCCESS:
 			return { ...store, data: payload, loading: false };
 		case DELETE_DATA_FAILURE:
+			return { ...store, error: payload, loading: false };
+		case DELETE_CHECKED_DATA_REQUEST:
+			return { ...store, loading: true };
+		case DELETE_CHECKED_DATA_SUCCESS:
+			return {
+				...store,
+				data: store.data.filter((d) => !payload.includes(d.id)),
+				loading: false,
+			};
+		case DELETE_CHECKED_DATA_FAILURE:
 			return { ...store, error: payload, loading: false };
 		default:
 			return store;

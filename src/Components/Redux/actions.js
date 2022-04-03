@@ -1,4 +1,7 @@
 import {
+	DELETE_CHECKED_DATA_FAILURE,
+	DELETE_CHECKED_DATA_REQUEST,
+	DELETE_CHECKED_DATA_SUCCESS,
 	DELETE_DATA_FAILURE,
 	DELETE_DATA_REQUEST,
 	DELETE_DATA_SUCCESS,
@@ -65,5 +68,19 @@ export const deleteDataSuccess = (payload) => ({
 
 export const deleteDataFailure = (message) => ({
 	type: DELETE_DATA_FAILURE,
+	message,
+});
+
+export const deleteCheckedDataRequest = () => ({
+	type: DELETE_CHECKED_DATA_REQUEST,
+});
+
+export const deleteCheckedDataSuccess = (payload) => ({
+	type: DELETE_CHECKED_DATA_SUCCESS,
+	payload,
+});
+
+export const deleteCheckedDataFailure = (message) => ({
+	type: DELETE_CHECKED_DATA_FAILURE,
 	message,
 });
