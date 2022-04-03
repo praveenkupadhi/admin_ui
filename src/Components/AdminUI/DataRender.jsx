@@ -63,6 +63,28 @@ export const DataRender = () => {
 		setIndexOfLastData((data.selected + 1) * 10);
 	};
 
+	// check all delete
+	const checkAllAndDelete = () => {
+		const checkBoxes = document.querySelectorAll("input[type='checkbox']");
+		if (checkBoxes[0].checked === true) {
+			let temp = [];
+			checkBoxes.forEach((checkBox) => {
+				checkBox.checked = true;
+				if (checkBox.id != 0) {
+					temp.push(checkBox.id);
+				}
+				setCheckedData([...checkedData, ...temp]);
+			});
+		} else if (checkBoxes[0].checked === false) {
+			checkBoxes.forEach((checkBox) => {
+				checkBox.checked = false;
+				setCheckedData([]);
+			});
+		}
+		dispatch(deleteCheckedDataRequest());
+		dispatch(deleteCheckedDataSuccess(checkedData));
+	};
+
 	return (
 		<div className="container">
 			<input
@@ -75,7 +97,7 @@ export const DataRender = () => {
 				<thead>
 					<tr>
 						<th>
-							<input type="checkbox" />
+							<input type="checkbox" onChange={checkAllAndDelete} />
 						</th>
 						<th>Name</th>
 						<th>Email</th>
