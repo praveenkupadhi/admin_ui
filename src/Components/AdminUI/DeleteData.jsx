@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { deleteDataRequest, deleteDataSuccess } from "../Redux/actions";
+import swal from "sweetalert";
 
 export const DeleteData = () => {
 	const { id } = useParams();
@@ -16,5 +17,6 @@ export const DeleteData = () => {
 		dispatch(deleteDataSuccess(filterData));
 
 		navigate("/");
+		swal("Data", "Deleted Successfully", "success");
 	});
 };

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { editDataRequest, editDataSuccess } from "../Redux/actions";
+import swal from "sweetalert";
 
 export const EditData = () => {
 	const { id } = useParams();
@@ -37,6 +38,7 @@ export const EditData = () => {
 		dispatch(editDataRequest());
 		dispatch(editDataSuccess(temp));
 		navigate("/");
+		swal("Data", "Edited Successfully", "success");
 	};
 
 	return (

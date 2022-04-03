@@ -4,8 +4,6 @@ import { Delete, Edit } from "./Icons";
 import {
 	deleteCheckedDataRequest,
 	deleteCheckedDataSuccess,
-	fetchDataRequest,
-	fetchDataSuccess,
 	searchDataRequest,
 	searchDataSuccess,
 } from "../Redux/actions";
@@ -13,6 +11,7 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router";
+import swal from "sweetalert";
 
 export const DataRender = () => {
 	const data = useSelector((store) => store.data);
@@ -55,6 +54,7 @@ export const DataRender = () => {
 	const deleteCheckedData = () => {
 		dispatch(deleteCheckedDataRequest());
 		dispatch(deleteCheckedDataSuccess(checkedData));
+		swal("Data", "Deleted Successfully", "success");
 	};
 
 	// page handle
