@@ -1,38 +1,81 @@
-.App {
-  text-align: center;
+.deleteIcon {
+	color: #fe5272;
+	transition: font-size 0.5s;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.deleteIcon:hover {
+	font-size: 36px;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.editIcon {
+	color: rgb(9, 129, 89);
+	transition: font-size 0.5s;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.editIcon:hover {
+	color: green;
+	font-size: 36px;
 }
-
-.App-link {
-  color: #61dafb;
+table {
+	width: 1110px;
+	border-collapse: collapse;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+thead > tr > th,
+tbody > tr > td {
+	border-bottom: 1px solid rgb(203, 200, 200);
+	text-align: center;
+	height: 50px;
+	font-size: 25px;
+}
+#search {
+	width: 1110px;
+	height: 35px;
+	border-radius: 3px;
+	font-size: 20px;
+	border: 1px solid rgb(203, 200, 200);
+	margin-top: 20px;
+	padding-left: 15px;
+	transition: border 0.5s;
+}
+#search:hover {
+	border: 1px solid teal;
+}
+#deleteChecked {
+	border: 1px solid #fe5272;
+	font-size: 15px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border-radius: 25px;
+	padding: 10px;
+	background-color: #fe5272;
+	color: snow;
+	cursor: pointer;
+	transition: padding 0.5s;
+}
+#deleteChecked:hover {
+	padding: 15px;
+}
+thead > tr > th > input,
+tbody > tr > td > input {
+	font-size: 20px;
+	border: 2px solid rgb(220, 217, 217);
+	border-radius: 3px;
+	transition: border-color 0.5s;
+}
+thead > tr > th > input:hover,
+tbody > tr > td > input:hover {
+	border-color: teal;
+}
+#editBtn {
+	margin-top: 20px;
+	font-size: 18px;
+	border-radius: 3px;
+	cursor: pointer;
+	color: whitesmoke;
+	background-color: rgb(86, 179, 86);
+	border: 1px solid rgb(86, 179, 86);
+	width: 60px;
+	height: 30px;
+	transition: width 1s, height 1s;
+}
+#editBtn:hover {
+	width: 80px;
+	height: 40px;
 }
