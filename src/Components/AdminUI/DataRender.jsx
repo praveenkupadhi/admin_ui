@@ -54,7 +54,8 @@ export const DataRender = () => {
 	const deleteCheckedData = () => {
 		dispatch(deleteCheckedDataRequest());
 		dispatch(deleteCheckedDataSuccess(checkedData));
-		swal("Data", "Deleted Successfully", "success");
+		if (checkedData.length !== 0)
+			swal("Data", "Deleted Successfully", "success");
 	};
 
 	// page handle
