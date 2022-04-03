@@ -75,14 +75,15 @@ export const DataRender = () => {
 				}
 				setCheckedData([...checkedData, ...temp]);
 			});
+			dispatch(deleteCheckedDataRequest());
+			dispatch(deleteCheckedDataSuccess(checkedData));
+			checkBoxes[0].checked = false;
 		} else if (checkBoxes[0].checked === false) {
 			checkBoxes.forEach((checkBox) => {
 				checkBox.checked = false;
 				setCheckedData([]);
 			});
 		}
-		dispatch(deleteCheckedDataRequest());
-		dispatch(deleteCheckedDataSuccess(checkedData));
 	};
 
 	return (
