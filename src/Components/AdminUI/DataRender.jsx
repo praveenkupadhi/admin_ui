@@ -35,9 +35,9 @@ export const DataRender = () => {
 		setFilterData(
 			data.filter(
 				(d) =>
-					d.name.includes(e.target.value) ||
-					d.email.includes(e.target.value) ||
-					d.role.includes(e.target.value)
+					d.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+					d.email.toLowerCase().includes(e.target.value.toLowerCase()) ||
+					d.role.toLowerCase().includes(e.target.value.toLowerCase())
 			)
 		);
 		dispatch(searchDataSuccess());
