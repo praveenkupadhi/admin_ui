@@ -13,6 +13,8 @@ export const AdminHome = () => {
 	const loading = useSelector((store) => store.loading);
 	const dispatch = useDispatch();
 
+	// console.log(data);
+
 	useEffect(() => {
 		dispatch(fetchDataRequest());
 		if (data.length === 0) {
