@@ -1,17 +1,17 @@
-import { useDispatch, useSelector } from "react-redux";
-import { IconContext } from "react-icons";
-import { Delete, Edit } from "./Icons";
+import { useDispatch, useSelector } from 'react-redux';
+import { IconContext } from 'react-icons';
+import { Delete, Edit } from './Icons';
 import {
 	deleteCheckedDataRequest,
 	deleteCheckedDataSuccess,
 	searchDataRequest,
 	searchDataSuccess,
-} from "../Redux/actions";
-import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
-import ReactPaginate from "react-paginate";
-import { useNavigate } from "react-router";
-import swal from "sweetalert";
+} from '../Redux/actions';
+import { NavLink } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import ReactPaginate from 'react-paginate';
+import { useNavigate } from 'react-router';
+import swal from 'sweetalert';
 
 export const DataRender = () => {
 	const data = useSelector((store) => store.data);
@@ -55,7 +55,7 @@ export const DataRender = () => {
 		dispatch(deleteCheckedDataRequest());
 		dispatch(deleteCheckedDataSuccess(checkedData));
 		if (checkedData.length !== 0)
-			swal("Data", "Deleted Successfully", "success");
+			swal('Data', 'Deleted Successfully', 'success');
 	};
 
 	// page handle
@@ -87,18 +87,18 @@ export const DataRender = () => {
 	};
 
 	return (
-		<div className="container">
+		<div className='container'>
 			<input
-				type="text"
-				placeholder="Search by name, email or role"
+				type='text'
+				placeholder='Search by name, email or role'
 				onChange={handleChange}
-				id="search"
+				id='search'
 			/>
 			<table>
 				<thead>
 					<tr>
 						<th>
-							<input type="checkbox" onChange={checkAllAndDelete} />
+							<input type='checkbox' onChange={checkAllAndDelete} />
 						</th>
 						<th>Name</th>
 						<th>Email</th>
@@ -118,7 +118,7 @@ export const DataRender = () => {
 									<tr key={e.id}>
 										<td>
 											<input
-												type="checkbox"
+												type='checkbox'
 												id={e.id}
 												onClick={handleCheckedData}
 											/>
@@ -127,23 +127,25 @@ export const DataRender = () => {
 										<td>{e.email}</td>
 										<td>{e.role}</td>
 										<td>
-											<div>
-												<NavLink to={`edit/${e.id}`}>
-													<IconContext.Provider
-														value={{ className: "editIcon" }}
-													>
-														<Edit />
-													</IconContext.Provider>
-												</NavLink>
-											</div>
-											<div>
-												<NavLink to={`delete/${e.id}`}>
-													<IconContext.Provider
-														value={{ className: "deleteIcon" }}
-													>
-														<Delete />
-													</IconContext.Provider>
-												</NavLink>
+											<div className='buttons-align'>
+												<div>
+													<NavLink to={`edit/${e.id}`}>
+														<IconContext.Provider
+															value={{ className: 'editIcon' }}
+														>
+															<Edit />
+														</IconContext.Provider>
+													</NavLink>
+												</div>
+												<div>
+													<NavLink to={`delete/${e.id}`}>
+														<IconContext.Provider
+															value={{ className: 'deleteIcon' }}
+														>
+															<Delete />
+														</IconContext.Provider>
+													</NavLink>
+												</div>
 											</div>
 										</td>
 									</tr>
@@ -152,23 +154,23 @@ export const DataRender = () => {
 					)}
 				</tbody>
 			</table>
-			<button onClick={deleteCheckedData} id="deleteChecked">
+			<button onClick={deleteCheckedData} id='deleteChecked'>
 				Delete Selected
 			</button>
 			<ReactPaginate
-				previousLabel={"previous"}
-				nextLabel={"next"}
+				previousLabel={'previous'}
+				nextLabel={'next'}
 				pageCount={totalPages}
-				containerClassName={"pagination justify-content-center"}
-				pageClassName={"page-item"}
-				pageLinkClassName={"page-link"}
-				previousClassName={"page-item"}
-				previousLinkClassName={"page-link"}
-				nextClassName={"page-item"}
-				nextLinkClassName={"page-link"}
-				breakClassName={"page-item"}
-				breakLinkClassName={"page-link"}
-				activeClassName={"active"}
+				containerClassName={'pagination justify-content-center'}
+				pageClassName={'page-item'}
+				pageLinkClassName={'page-link'}
+				previousClassName={'page-item'}
+				previousLinkClassName={'page-link'}
+				nextClassName={'page-item'}
+				nextLinkClassName={'page-link'}
+				breakClassName={'page-item'}
+				breakLinkClassName={'page-link'}
+				activeClassName={'active'}
 				onPageChange={handlePageClick}
 			/>
 		</div>

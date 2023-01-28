@@ -13,6 +13,11 @@
 	color: green;
 	font-size: 36px;
 }
+.buttons-align {
+	display: flex;
+	justify-content: center;
+	gap: 0.5rem;
+}
 table {
 	width: 1110px;
 	border-collapse: collapse;
