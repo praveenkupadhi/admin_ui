@@ -1,15 +1,15 @@
-import { FiEdit } from "react-icons/fi";
-import { MdDeleteOutline } from "react-icons/md";
-import React from "react";
+import { FiEdit } from 'react-icons/fi';
+import { MdDeleteOutline } from 'react-icons/md';
+import { Component } from 'react';
 
-export class Edit extends React.Component {
-	render() {
-		return <FiEdit />;
-	}
+export class Edit extends Component {
+  render() {
+    return <FiEdit />;
+  }
 }
 
-export class Delete extends React.Component {
-	render() {
-		return <MdDeleteOutline />;
-	}
+export class Delete extends Component {
+  render() {
+    return <MdDeleteOutline />;
+  }
 }

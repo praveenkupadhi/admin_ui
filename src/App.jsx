@@ -1,8 +1,8 @@
 import './App.css';
-import { RouteMain } from './Components/Routes/RouteMain';
+import Router from './Router';
 
-function App() {
-  return <RouteMain />;
-}
+const App = () => {
+  return <Router />;
+};
 
 export default App;

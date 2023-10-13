@@ -29,7 +29,7 @@ export const AdminHome = () => {
     } else {
       dispatch(fetchDataSuccess(data));
     }
-  }, [dispatch]);
+  }, [data, dispatch]);
 
   return loading ? <h2>Loading...</h2> : <DataRender />;
 };
