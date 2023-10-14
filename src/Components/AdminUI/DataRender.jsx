@@ -4,17 +4,21 @@ import { Delete, Edit } from './Icons';
 import {
   deleteCheckedDataRequest,
   deleteCheckedDataSuccess,
+  deleteDataRequest,
+  deleteDataSuccess,
   searchDataRequest,
   searchDataSuccess
 } from '../Redux/actions';
 import { NavLink } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import swal from 'sweetalert';
 
 export const DataRender = () => {
   const data = useSelector((store) => store.data);
   const dispatch = useDispatch();
+  const editIcon = useMemo(() => ({ className: 'editIcon' }), []);
+  const deleteIcon = useMemo(() => ({ className: 'deleteIcon' }), []);
   const [filterData, setFilterData] = useState([...data]);
   const [checkedData, setCheckedData] = useState([]);
   const [indexOfFirstData, setIndexOfFirstData] = useState(0);
@@ -24,6 +28,13 @@ export const DataRender = () => {
   useEffect(() => {
     setFilterData(data);
   }, [data]);
+
+  const deleteSingleData = (id) => {
+    const filterData = data.filter((d) => d.id !== id);
+    dispatch(deleteDataRequest());
+    dispatch(deleteDataSuccess(filterData));
+    swal('Data', 'Deleted Successfully', 'success');
+  };
 
   const handleChange = (e) => {
     dispatch(searchDataRequest());
@@ -89,85 +100,82 @@ export const DataRender = () => {
         onChange={handleChange}
         id="search"
       />
-      <table>
-        <thead>
-          <tr>
-            <th>
-              <input type="checkbox" onChange={checkAllAndDelete} />
-            </th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filterData.length === 0 ? (
-            <tr>
-              <td>No data found</td>
-            </tr>
-          ) : (
-            filterData.map((e, i) => {
-              if (i >= indexOfFirstData && i < indexOfLastData)
-                return (
-                  <tr key={e.id}>
-                    <td>
-                      <input
-                        type="checkbox"
-                        id={e.id}
-                        onClick={handleCheckedData}
-                      />
-                    </td>
-                    <td>{e.name}</td>
-                    <td>{e.email}</td>
-                    <td>{e.role}</td>
-                    <td>
-                      <div className="buttons-align">
-                        <div>
-                          <NavLink to={`edit/${e.id}`}>
-                            <IconContext.Provider
-                              value={{ className: 'editIcon' }}
-                            >
-                              <Edit />
-                            </IconContext.Provider>
-                          </NavLink>
-                        </div>
-                        <div>
-                          <NavLink to={`delete/${e.id}`}>
-                            <IconContext.Provider
-                              value={{ className: 'deleteIcon' }}
-                            >
+      {filterData.length === 0 ? (
+        <h3 className="d-flex justify-content-center">No data found.</h3>
+      ) : (
+        <>
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  <input type="checkbox" onChange={checkAllAndDelete} />
+                </th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filterData.map((e, i) => {
+                return i >= indexOfFirstData && i < indexOfLastData ? (
+                  <Fragment key={e.id}>
+                    <tr>
+                      <td>
+                        <input
+                          type="checkbox"
+                          id={e.id}
+                          onClick={handleCheckedData}
+                        />
+                      </td>
+                      <td>{e.name}</td>
+                      <td>{e.email}</td>
+                      <td className="text-capitalize">{e.role}</td>
+                      <td>
+                        <div className="buttons-align">
+                          <div>
+                            <NavLink to={`edit/${e.id}`}>
+                              <IconContext.Provider value={editIcon}>
+                                <Edit />
+                              </IconContext.Provider>
+                            </NavLink>
+                          </div>
+                          <div onClick={() => deleteSingleData(e.id)}>
+                            <IconContext.Provider value={deleteIcon}>
                               <Delete />
                             </IconContext.Provider>
-                          </NavLink>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                  </tr>
+                      </td>
+                    </tr>
+                  </Fragment>
+                ) : (
+                  <Fragment key={crypto.randomUUID()}></Fragment>
                 );
-            })
-          )}
-        </tbody>
-      </table>
-      <button onClick={deleteCheckedData} id="deleteChecked">
-        Delete Selected
-      </button>
-      <ReactPaginate
-        previousLabel={'previous'}
-        nextLabel={'next'}
-        pageCount={totalPages}
-        containerClassName={'pagination justify-content-center'}
-        pageClassName={'page-item'}
-        pageLinkClassName={'page-link'}
-        previousClassName={'page-item'}
-        previousLinkClassName={'page-link'}
-        nextClassName={'page-item'}
-        nextLinkClassName={'page-link'}
-        breakClassName={'page-item'}
-        breakLinkClassName={'page-link'}
-        activeClassName={'active'}
-        onPageChange={handlePageClick}
-      />
+              })}
+            </tbody>
+          </table>
+          <button onClick={deleteCheckedData} id="deleteChecked">
+            Delete Selected
+          </button>
+          <ReactPaginate
+            previousLabel={'Previous'}
+            nextLabel={'Next'}
+            pageCount={totalPages}
+            containerClassName={'pagination justify-content-center'}
+            pageClassName={'page-item'}
+            pageLinkClassName={'page-link'}
+            previousClassName={'page-item'}
+            previousLinkClassName={'page-link'}
+            nextClassName={'page-item'}
+            nextLinkClassName={'page-link'}
+            breakClassName={'page-item'}
+            breakLinkClassName={'page-link'}
+            activeClassName={'active'}
+            onPageChange={handlePageClick}
+          />
+        </>
+      )}
     </div>
   );
 };

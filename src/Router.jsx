@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router';
 import { AdminHome } from './Components/AdminUI/AdminHome';
-import { DeleteData } from './Components/AdminUI/DeleteData';
 import { EditData } from './Components/AdminUI/EditData';
 
 const routeDetails = [
@@ -11,10 +10,6 @@ const routeDetails = [
   {
     path: 'edit/:id',
     element: <EditData />
-  },
-  {
-    path: 'delete/:id',
-    element: <DeleteData />
   },
   { path: '*', element: <h3>404 Not Found.</h3> }
 ];
