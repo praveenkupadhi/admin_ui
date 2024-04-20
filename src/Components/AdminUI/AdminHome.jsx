@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { DataRender } from './DataRender';
 import {
   fetchDataFailure,
   fetchDataRequest,
   fetchDataSuccess
 } from '../Redux/actions';
-import { DataRender } from './DataRender';
 
 export const AdminHome = () => {
   const data = useSelector((store) => store.data);
