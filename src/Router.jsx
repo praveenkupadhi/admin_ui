@@ -14,20 +14,18 @@ const routeDetails = [
   { path: '*', element: <h3>404 Not Found.</h3> }
 ];
 
-const Router = () => {
+function Router() {
   return (
-    <>
-      <Routes>
-        {routeDetails.map((routeDetail) => (
-          <Route
-            key={routeDetail.path}
-            path={routeDetail.path}
-            element={routeDetail.element}
-          ></Route>
-        ))}
-      </Routes>
-    </>
+    <Routes>
+      {routeDetails.map((routeDetail) => (
+        <Route
+          key={routeDetail.path}
+          path={routeDetail.path}
+          element={routeDetail.element}
+        ></Route>
+      ))}
+    </Routes>
   );
-};
+}
 
 export default Router;
