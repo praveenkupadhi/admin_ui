@@ -1,6 +1,6 @@
+import { Component } from 'react';
 import { FiEdit } from 'react-icons/fi';
 import { MdDeleteOutline } from 'react-icons/md';
-import { Component } from 'react';
 
 export class Edit extends Component {
   render() {
