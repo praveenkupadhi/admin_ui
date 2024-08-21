@@ -14,7 +14,7 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import swal from 'sweetalert';
 
-export const DataRender = () => {
+export const Members = () => {
   const data = useSelector((store) => store.data);
   const dispatch = useDispatch();
   const editIcon = useMemo(() => ({ className: 'editIcon' }), []);
@@ -23,7 +23,10 @@ export const DataRender = () => {
   const [checkedData, setCheckedData] = useState([]);
   const [indexOfFirstData, setIndexOfFirstData] = useState(0);
   const [indexOfLastData, setIndexOfLastData] = useState(10);
-  const totalPages = Math.ceil(filterData.length / 10);
+  const totalPages = useMemo(
+    () => Math.ceil(filterData.length / 10),
+    [filterData]
+  );
 
   useEffect(() => {
     setFilterData(data);
@@ -55,13 +58,22 @@ export const DataRender = () => {
     } else {
       setCheckedData(checkedData.filter((cd) => cd !== e.target.id));
     }
+    const checkBoxes = document.querySelectorAll("input[type='checkbox']");
+    const isAnyCheckboxUnChecked = [...checkBoxes].some(
+      (checkBox) => checkBox.checked === false && checkBox.id
+    );
+    if (isAnyCheckboxUnChecked) checkBoxes[0].checked = false;
   };
 
   const deleteCheckedData = () => {
     dispatch(deleteCheckedDataRequest());
     dispatch(deleteCheckedDataSuccess(checkedData));
-    if (checkedData.length !== 0)
-      swal('Data', 'Deleted Successfully', 'success');
+    setCheckedData([]);
+    const checkBoxes = document.querySelectorAll("input[type='checkbox']");
+    checkBoxes[0].checked = false;
+    setIndexOfFirstData(0);
+    setIndexOfLastData(10);
+    swal('Data', 'Deleted Successfully', 'success');
   };
 
   // page handle
@@ -74,21 +86,22 @@ export const DataRender = () => {
   const checkAllAndDelete = () => {
     const checkBoxes = document.querySelectorAll("input[type='checkbox']");
     if (checkBoxes[0].checked === true) {
-      let temp = [];
+      const temp = [];
       checkBoxes.forEach((checkBox) => {
-        checkBox.checked = true;
-        if (checkBox.id !== 0) {
-          temp.push(checkBox.id);
+        if (checkBox.id) {
+          checkBox.checked = true;
+          !checkedData.includes(checkBox.id) && temp.push(checkBox.id);
         }
-        setCheckedData([...checkedData, ...temp]);
       });
-      dispatch(deleteCheckedDataRequest());
-      dispatch(deleteCheckedDataSuccess(checkedData));
-    } else if (checkBoxes[0].checked === false) {
+      setCheckedData([...checkedData, ...temp]);
+      return;
+    }
+    if (checkBoxes[0].checked === false) {
       checkBoxes.forEach((checkBox) => {
         checkBox.checked = false;
         setCheckedData([]);
       });
+      return;
     }
   };
 
@@ -108,7 +121,11 @@ export const DataRender = () => {
             <thead>
               <tr>
                 <th>
-                  <input type="checkbox" onChange={checkAllAndDelete} />
+                  <input
+                    type="checkbox"
+                    defaultChecked={false}
+                    onChange={checkAllAndDelete}
+                  />
                 </th>
                 <th>Name</th>
                 <th>Email</th>
@@ -124,8 +141,9 @@ export const DataRender = () => {
                       <td>
                         <input
                           type="checkbox"
+                          defaultChecked={false}
                           id={e.id}
-                          onClick={handleCheckedData}
+                          onChange={handleCheckedData}
                         />
                       </td>
                       <td>{e.name}</td>

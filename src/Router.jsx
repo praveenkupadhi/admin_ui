@@ -1,18 +1,18 @@
 import { Route, Routes } from 'react-router';
 import { AdminHome } from './Components/AdminUI/AdminHome';
-import { EditData } from './Components/AdminUI/EditData';
+import { EditMember } from './Components/AdminUI/EditMember';
 
-const routeDetails = [
+const routeDetails = Object.freeze([
   {
     path: '/',
     element: <AdminHome />
   },
   {
     path: 'edit/:id',
-    element: <EditData />
+    element: <EditMember />
   },
   { path: '*', element: <h3>404 Not Found.</h3> }
-];
+]);
 
 function Router() {
   return (

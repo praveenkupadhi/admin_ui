@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
-import { editDataRequest, editDataSuccess } from '../Redux/actions';
+import { editMemberRequest, editMemberSuccess } from '../Redux/actions';
 import swal from 'sweetalert';
 
-export const EditData = () => {
+export const EditMember = () => {
   const { id } = useParams();
   const data = useSelector((store) => store.data);
   const dispatch = useDispatch();
@@ -13,23 +13,28 @@ export const EditData = () => {
   const [name, setName] = useState(fetchData[0]?.name);
   const [email, setEmail] = useState(fetchData[0]?.email);
   const [role, setRole] = useState(fetchData[0]?.role);
-  const isDataChanged =
-    fetchData[0]?.name === name &&
-    fetchData[0]?.email === email &&
-    fetchData[0]?.role === role;
+  const isDataChanged = useMemo(
+    () =>
+      fetchData[0]?.name === name &&
+      fetchData[0]?.email === email &&
+      fetchData[0]?.role === role,
+    [fetchData]
+  );
 
   const nameChange = (e) => {
     setName(e.target.value);
   };
+
   const emailChange = (e) => {
     setEmail(e.target.value);
   };
+
   const roleChange = (e) => {
     setRole(e.target.value);
   };
 
   const edit = () => {
-    let temp = [...data];
+    const temp = [...data];
     for (let i = 0; i < data.length; i++) {
       if (temp[i].id === fetchData[0].id) {
         temp[i].name = name === '' ? temp[i].name : name;
@@ -38,15 +43,15 @@ export const EditData = () => {
         break;
       }
     }
-    dispatch(editDataRequest());
-    dispatch(editDataSuccess(temp));
+    dispatch(editMemberRequest());
+    dispatch(editMemberSuccess(temp));
     navigate('/');
     swal('Data', 'Edited Successfully', 'success');
   };
 
   useEffect(() => {
     if (fetchData.length === 0) navigate('/');
-  });
+  }, [fetchData.length]);
 
   return (
     <div className="container">

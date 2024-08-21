@@ -1,12 +1,15 @@
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { DataRender } from './DataRender';
+import { Members } from './Members';
 import {
   fetchDataFailure,
   fetchDataRequest,
   fetchDataSuccess
 } from '../Redux/actions';
+
+const membersUrl =
+  'https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json';
 
 export const AdminHome = () => {
   const data = useSelector((store) => store.data);
@@ -14,22 +17,22 @@ export const AdminHome = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchDataRequest());
-    if (data.length === 0) {
-      axios
-        .get(
-          'https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json'
-        )
-        .then((res) => {
-          dispatch(fetchDataSuccess(res.data));
-        })
-        .catch((error) => {
-          dispatch(fetchDataFailure(error));
-        });
-    } else {
-      dispatch(fetchDataSuccess(data));
-    }
-  }, [data, dispatch]);
+    (async () => {
+      try {
+        dispatch(fetchDataRequest());
+        if (data.length === 0) {
+          const response = await axios.get(membersUrl);
+          dispatch(fetchDataSuccess(response.data));
+          return;
+        } else {
+          dispatch(fetchDataSuccess(data));
+        }
+      } catch (error) {
+        dispatch(fetchDataFailure(error));
+        console.error('@@@ Unable fetch members data @@@', error);
+      }
+    })();
+  }, []);
 
-  return loading ? <h2>Loading...</h2> : <DataRender />;
+  return loading ? <h2>Loading...</h2> : <Members />;
 };

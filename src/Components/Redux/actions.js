@@ -5,9 +5,9 @@ import {
   DELETE_DATA_FAILURE,
   DELETE_DATA_REQUEST,
   DELETE_DATA_SUCCESS,
-  EDIT_DATA_FAILURE,
-  EDIT_DATA_REQUEST,
-  EDIT_DATA_SUCCESS,
+  EDIT_MEMBER_FAILURE,
+  EDIT_MEMBER_REQUEST,
+  EDIT_MEMBER_SUCCESS,
   FETCH_DATA_FAILURE,
   FETCH_DATA_REQUEST,
   FETCH_DATA_SUCCESS,
@@ -43,17 +43,17 @@ export const searchDataFailure = (message) => ({
   message
 });
 
-export const editDataRequest = () => ({
-  type: EDIT_DATA_REQUEST
+export const editMemberRequest = () => ({
+  type: EDIT_MEMBER_REQUEST
 });
 
-export const editDataSuccess = (payload) => ({
-  type: EDIT_DATA_SUCCESS,
+export const editMemberSuccess = (payload) => ({
+  type: EDIT_MEMBER_SUCCESS,
   payload
 });
 
-export const editDataFailure = (message) => ({
-  type: EDIT_DATA_FAILURE,
+export const editMemberFailure = (message) => ({
+  type: EDIT_MEMBER_FAILURE,
   message
 });
 

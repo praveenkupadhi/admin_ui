@@ -5,9 +5,9 @@ import {
   DELETE_DATA_FAILURE,
   DELETE_DATA_REQUEST,
   DELETE_DATA_SUCCESS,
-  EDIT_DATA_FAILURE,
-  EDIT_DATA_REQUEST,
-  EDIT_DATA_SUCCESS,
+  EDIT_MEMBER_FAILURE,
+  EDIT_MEMBER_REQUEST,
+  EDIT_MEMBER_SUCCESS,
   FETCH_DATA_FAILURE,
   FETCH_DATA_REQUEST,
   FETCH_DATA_SUCCESS,
@@ -36,11 +36,11 @@ export const reducer = (store = initState, { type, payload }) => {
       return { ...store, loading: false };
     case SEARCH_DATA_FAILURE:
       return { ...store, error: payload, loading: false };
-    case EDIT_DATA_REQUEST:
+    case EDIT_MEMBER_REQUEST:
       return { ...store, loading: true };
-    case EDIT_DATA_SUCCESS:
+    case EDIT_MEMBER_SUCCESS:
       return { ...store, data: payload, loading: false };
-    case EDIT_DATA_FAILURE:
+    case EDIT_MEMBER_FAILURE:
       return { ...store, error: payload, loading: false };
     case DELETE_DATA_REQUEST:
       return { ...store, loading: true };

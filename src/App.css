@@ -106,3 +106,9 @@ tbody > tr > td > input:hover {
   width: 80px;
   height: 40px;
 }
+
+.grid-center {
+  display: grid;
+  place-content: center;
+  min-height: 100dvh;
+}
