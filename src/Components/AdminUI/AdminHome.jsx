@@ -12,7 +12,6 @@ const membersUrl =
   'https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json';
 
 export const AdminHome = () => {
-  const data = useSelector((store) => store.data);
   const loading = useSelector((store) => store.loading);
   const dispatch = useDispatch();
 
