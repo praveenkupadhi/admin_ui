@@ -20,19 +20,14 @@ export const AdminHome = () => {
     (async () => {
       try {
         dispatch(fetchDataRequest());
-        if (data.length === 0) {
-          const response = await axios.get(membersUrl);
-          dispatch(fetchDataSuccess(response.data));
-          return;
-        } else {
-          dispatch(fetchDataSuccess(data));
-        }
+        const response = await axios.get(membersUrl);
+        dispatch(fetchDataSuccess(response.data));
       } catch (error) {
         dispatch(fetchDataFailure(error));
         console.error('@@@ Unable fetch members data @@@', error);
       }
     })();
-  }, []);
+  }, [dispatch]);
 
   return loading ? <h2>Loading...</h2> : <Members />;
 };

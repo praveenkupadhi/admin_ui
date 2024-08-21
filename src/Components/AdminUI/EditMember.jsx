@@ -18,7 +18,7 @@ export const EditMember = () => {
       fetchData[0]?.name === name &&
       fetchData[0]?.email === email &&
       fetchData[0]?.role === role,
-    [fetchData]
+    [fetchData, name, email, role]
   );
 
   const nameChange = (e) => {
@@ -51,7 +51,7 @@ export const EditMember = () => {
 
   useEffect(() => {
     if (fetchData.length === 0) navigate('/');
-  }, [fetchData.length]);
+  }, [fetchData.length, navigate]);
 
   return (
     <div className="container">
