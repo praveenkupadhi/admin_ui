@@ -31,7 +31,7 @@ export const AdminHome = () => {
         console.error('@@@ Unable fetch members data @@@', error);
       }
     })();
-  }, []);
+  }, [data, dispatch]);
 
   return loading ? <h2>Loading...</h2> : <Members />;
 };
