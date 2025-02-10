@@ -13,20 +13,25 @@ const membersUrl =
 
 export const AdminHome = () => {
   const loading = useSelector((store) => store.loading);
+  const data = useSelector((store) => store.data);
   const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
       try {
         dispatch(fetchDataRequest());
-        const response = await axios.get(membersUrl);
-        dispatch(fetchDataSuccess(response.data));
+        if (data.length) {
+          dispatch(fetchDataSuccess(data));
+        } else {
+          const response = await axios.get(membersUrl);
+          dispatch(fetchDataSuccess(response.data));
+        }
       } catch (error) {
         dispatch(fetchDataFailure(error));
         console.error('@@@ Unable fetch members data @@@', error);
       }
     })();
-  }, [dispatch]);
+  }, []);
 
   return loading ? <h2>Loading...</h2> : <Members />;
 };
