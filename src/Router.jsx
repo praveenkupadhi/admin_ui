@@ -11,7 +11,7 @@ const routeDetails = Object.freeze([
     path: 'edit/:id',
     element: <EditMember />
   },
-  { path: '*', element: <h3>404 Not Found.</h3> }
+  { path: '*', element: <h3>Page Not Found.</h3> }
 ]);
 
 function Router() {
